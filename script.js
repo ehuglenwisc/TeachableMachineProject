@@ -1,63 +1,70 @@
-let classifier;
-let video;
-let canvas;
-let ctx;
-let label = "Loading...";
+const URL = "https://teachablemachine.withgoogle.com/models/LHT9iEh1T/";
 
-// Use your Teachable Machine model URL
-const modelURL = "https://teachablemachine.withgoogle.com/models/LHT9iEh1T/";
+let model, webcam, labelContainer, maxPredictions;
+let previousLabel = "";
+let stableLabel = "";
+let stableLabelCount = 0;
 
-function setup() {
-  // Create the canvas and video elements
-  canvas = document.getElementById("canvas");
-  canvas.width = 640;
-  canvas.height = 520;
-  ctx = canvas.getContext("2d");
+async function init() {
+    const modelURL = URL + "model.json";
+    const metadataURL = URL + "metadata.json";
 
-  video = document.createElement("video");
-  video.setAttribute("autoplay", true);
-  video.setAttribute("playsinline", true);
+    model = await tmImage.load(modelURL, metadataURL);
+    maxPredictions = model.getTotalClasses();
 
-  // Start the webcam
-  navigator.mediaDevices.getUserMedia({ video: true })
-    .then((stream) => {
-      video.srcObject = stream;
-      video.play();
-      classifyVideo();
-    })
-    .catch((err) => {
-      console.error("Webcam access error:", err);
-    });
+    const flip = true;
+    webcam = new tmImage.Webcam(300, 300, flip); // Create webcam object
+    await webcam.setup(); // Setup webcam
+    await webcam.play(); // Start webcam
+    window.requestAnimationFrame(loop);
 
-  // Load the classifier
-  classifier = ml5.imageClassifier(modelURL + "model.json", modelReady);
+    document.getElementById("webcam-container").appendChild(webcam.canvas); // Add webcam canvas
+    labelContainer = document.getElementById("label-container");
+
+    for (let i = 0; i < maxPredictions; i++) {
+        labelContainer.appendChild(document.createElement("div"));
+    }
 }
 
-function modelReady() {
-  console.log("Model Loaded!");
+async function loop() {
+    webcam.update(); // Update webcam image
+    await predict(); // Make predictions
+    window.requestAnimationFrame(loop);
 }
 
-function classifyVideo() {
-  classifier.classify(video, gotResult);
+async function predict() {
+    const prediction = await model.predict(webcam.canvas);
+    let currentLabel = "";
+    let highestProbability = 0;
+
+    for (let i = 0; i < maxPredictions; i++) {
+        const classPrediction = `${prediction[i].className}: ${prediction[i].probability.toFixed(2)}`;
+        labelContainer.childNodes[i].innerHTML = classPrediction;
+
+        if (prediction[i].probability > highestProbability) {
+            highestProbability = prediction[i].probability;
+            currentLabel = prediction[i].className;
+        }
+    }
+
+    if (highestProbability > 0.9) {
+        if (currentLabel === stableLabel) {
+            stableLabelCount++;
+        } else {
+            stableLabel = currentLabel;
+            stableLabelCount = 1;
+        }
+
+        if (stableLabelCount >= 3 && currentLabel !== previousLabel) {
+            speakLabel(currentLabel);
+            previousLabel = currentLabel;
+        }
+    }
 }
 
-function gotResult(error, results) {
-  if (error) {
-    console.error(error);
-    return;
-  }
-  // Update the label with the top prediction
-  label = results[0].label;
-  classifyVideo(); // Keep classifying
+function speakLabel(label) {
+    const utterance = new SpeechSynthesisUtterance(label);
+    utterance.rate = 1;
+    utterance.pitch = 1;
+    window.speechSynthesis.speak(utterance);
 }
-
-function draw() {
-  // Draw the video feed onto the canvas
-  ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-  // Update the label
-  document.getElementById("label").innerText = label;
-}
-
-// Initialize everything
-setup();
-setInterval(draw, 30); // Update the canvas at 30 FPS
