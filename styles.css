@@ -227,3 +227,36 @@ button[onclick="location.reload()"]:active {
 .audio-note p {
     margin: 0;
 }
+
+#reflection {
+    max-width: 800px; /* Limit the width for better readability */
+    margin: 0 auto; /* Center the section horizontally */
+    padding: 20px; /* Add spacing around the content */
+    font-family: 'Arial', sans-serif; /* Use a clean and readable font */
+    line-height: 1.6; /* Improve readability with appropriate line spacing */
+    color: #333; /* Neutral text color for readability */
+    background-color: #f9f9f9; /* Light background for contrast */
+    border-radius: 10px; /* Add rounded corners */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add a subtle shadow for depth */
+}
+
+#reflection h2 {
+    font-size: 2em; /* Larger title for the main heading */
+    margin-bottom: 15px;
+    color: #222;
+    text-align: center;
+}
+
+#reflection h3 {
+    font-size: 1.5em; /* Slightly smaller subheadings */
+    margin-top: 20px;
+    color: #444;
+}
+
+#reflection p {
+    margin-bottom: 15px; /* Add spacing between paragraphs */
+}
+
+body {
+    background-color: #eaeaea; /* Light gray background to frame the content */
+}
