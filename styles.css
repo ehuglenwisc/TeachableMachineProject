@@ -1,66 +1,229 @@
+/* General body styling */
 body {
-    font-family: Arial, sans-serif;
-    text-align: center;
-    background-color: #f9f9f9;
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
     color: #333;
+    background-color: #e0f7fa; /* Light teal background */
     margin: 0;
     padding: 0;
 }
 
-h1 {
-    margin-top: 20px;
+/* Header styling */
+header {
+    background-color: #00796b; /* Dark teal */
+    color: white;
+    padding: 1rem;
+    text-align: center;
+    font-size: 1.5rem;
 }
 
+/* Navigation styling */
 nav {
-    background-color: #007bff;
-    padding: 10px;
+    display: flex;
+    justify-content: center;
+    background-color: #004d40; /* Deep teal */
 }
 
 nav a {
     color: white;
-    padding: 10px 20px;
+    padding: 0.5rem 1rem;
     text-decoration: none;
-    font-size: 18px;
+    font-weight: bold;
 }
 
 nav a:hover {
-    background-color: #0056b3;
+    background-color: #00796b;
+    border-radius: 5px;
 }
 
-section {
-    margin: 20px;
+/* Page content styling */
+.container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 1rem;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-#webcam-container {
-    margin: 20px auto;
+/* Center the Machine Learning model buttons */
+#webcam-container, #label-container, button {
     display: flex;
     justify-content: center;
+    margin: 1rem auto;
 }
 
-#label-container div {
-    font-size: 18px;
-    margin: 10px;
+/* Video and iframe styling */
+iframe, video {
+    display: block;
+    margin: 1rem auto;
+    max-width: 100%;
+    border: 2px solid #ccc;
+    border-radius: 5px;
 }
 
+/* Button styling */
 button {
-    background-color: #007bff;
+    background-color: #00796b;
     color: white;
+    padding: 0.5rem 1rem;
     border: none;
-    padding: 10px 20px;
-    font-size: 16px;
     border-radius: 5px;
     cursor: pointer;
+    font-size: 1rem;
 }
 
 button:hover {
-    background-color: #0056b3;
+    background-color: #004d40;
 }
 
-ul {
-    list-style-type: none;
-    padding: 0;
+/* Text styling */
+h1, h2, h3 {
+    text-align: center;
+    color: #333;
 }
 
-ul li {
-    margin: 10px 0;
+p {
+    margin: 1rem 0;
+    line-height: 1.8;
+}
+
+a {
+    color: #00796b;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Styling for reflection page */
+.reflection {
+    padding: 1rem;
+    margin-top: 1rem;
+}
+
+.reflection p {
+    margin: 1.5rem 0;
+    padding: 0.5rem;
+    border-left: 4px solid #00796b;
+    background-color: #f1f1f1;
+}
+
+/* Footer styling */
+footer {
+    text-align: center;
+    padding: 1rem;
+    background-color: #004d40;
+    color: white;
+    margin-top: 2rem;
+    font-size: 0.9rem;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    body {
+        font-size: 0.9rem;
+    }
+
+    nav a {
+        padding: 0.5rem 0.8rem;
+    }
+
+    .container {
+        padding: 0.8rem;
+    }
+}
+
+/* Styling for prediction labels */
+#label-container div {
+    font-size: 1.2rem;
+    margin: 0.5rem 0;
+    padding: 0.5rem;
+    border-radius: 5px;
+    background-color: #ffffff; /* White background for readability */
+    color: #004d40; /* Deep teal text */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    text-align: center;
+    width: 60%; /* Optional: Adjust width */
+    margin-left: auto; /* Center horizontally */
+    margin-right: auto; /* Center horizontally */
+}
+
+/* Navbar styling */
+nav {
+    background-color: #004d40; /* Deep teal */
+    padding: 1rem;
+}
+
+/* Navbar links */
+nav a {
+    color: #ffffff; /* White text */
+    text-decoration: none;
+    margin: 0 1rem;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: 0.3s ease;
+}
+
+/* Navbar links hover effect */
+nav a:hover {
+    color: #e0f7fa; /* Light teal on hover */
+    text-decoration: underline; /* Underline on hover */
+    transform: scale(1.1); /* Slightly enlarge on hover */
+}
+
+body {
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+#start-button {
+    background-color: #004d40; /* Dark teal background */
+    color: white;
+    padding: 1rem 2rem;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s ease; /* Transition for smooth hover effect */
+    margin-top: 20px; /* Add some margin at the top */
+}
+
+
+button[onclick="location.reload()"] {
+    background-color: #d32f2f; /* Red background */
+    color: white;
+    padding: 1rem 2rem;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s ease; /* Transition for smooth hover effect */
+    margin-top: 20px; /* Add some margin at the top */
+}
+
+button[onclick="location.reload()"]:hover {
+    background-color: #f44336; /* Lighter red on hover */
+    transform: scale(1.1); /* Slightly enlarge the button on hover */
+}
+
+button[onclick="location.reload()"]:active {
+    background-color: #b71c1c; /* Darker red when button is clicked */
+    transform: scale(1); /* Reset the scale on click */
+}
+
+.audio-note {
+    background-color: #ffeb3b; /* Light yellow background */
+    color: #333; /* Dark text color */
+    padding: 1rem;
+    border-radius: 5px;
+    margin: 20px 0;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.audio-note p {
+    margin: 0;
 }

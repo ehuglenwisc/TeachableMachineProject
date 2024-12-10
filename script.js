@@ -4,6 +4,7 @@ let model, webcam, labelContainer, maxPredictions;
 let previousLabel = "";
 let stableLabel = "";
 let stableLabelCount = 0;
+let isMuted = false; // Flag to control muting
 
 async function init() {
     const modelURL = URL + "model.json";
@@ -24,6 +25,9 @@ async function init() {
     for (let i = 0; i < maxPredictions; i++) {
         labelContainer.appendChild(document.createElement("div"));
     }
+
+
+
 }
 
 async function loop() {
